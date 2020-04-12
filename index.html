@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>exam</title>
     <link rel="stylesheet" href="CSS/index.css">
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <style>
+
+    </style>
 </head>
 <body>
 <header>
@@ -15,16 +19,44 @@
 </header>
 <main>
     <div id="examBox">
-        <div id="questionWrapper">Question:<span>What your name?</span> </div>
-        <form action="submit">
+        <div id="questionWrapper">Question:<span id="answerText">What your name?</span> </div>
+        <form id="choiceForm" action="">
             <ol id="choices">
-                <li><input type="radio" id="choice1" value="0" name="answer"> A:<span id="answer1">john</span></li>
-                <li><input type="radio" id="choice2" value="1" name="answer"> B:<span id="answer2">smith</span></li>
-                <li><input type="radio" id="choice3" value="2" name="answer"> C:<span id="answer3">jack</span></li>
-                <li><input type="radio" id="choice4" value="3" name="answer"> D:<span id="answer4">zhangsan</span></li>
+                <li><input class="choiceAnswer" type="radio" id="choice1" value="0" name="answer"> A:<span id="answer1">john</span></li>
+                <li><input class="choiceAnswer" type="radio" id="choice2" value="1" name="answer" checked> B:<span id="answer2">smith</span></li>
+                <li><input class="choiceAnswer" type="radio" id="choice3" value="2" name="answer"> C:<span id="answer3">jack</span></li>
+                <li><input class="choiceAnswer" type="radio" id="choice4" value="3" name="answer"> D:<span id="answer4">zhangsan</span></li>
             </ol>
-            <button id="choiceSubmit">Submit</button>
         </form>
+        <button id="choiceSubmit">Submit</button>
+        <div id="answerExplain"></div>
+        <script>
+            let question =  {
+                questionText:"jack 几岁",
+                 questionAnswer: ["10","11","12","13"],
+                correctAnswer:2,
+                anSwerExplain:"因为他去年11岁",
+            }
+            $("#answerText").text(question["questionText"])
+            $("#answer1").text(question["questionAnswer"][0])
+             $("#answer2").text(question["questionAnswer"][1])
+             $("#answer3").text(question["questionAnswer"][2])
+             $("#answer4").text(question["questionAnswer"][3])
+            $("#choiceSubmit").click(()=>{
+                for(let i =0;i<$(".choiceAnswer").length;i++){
+                    if($(".choiceAnswer")[i].checked==true){
+                        if($(".choiceAnswer")[i].value==question["correctAnswer"]){
+                            console.log("you are correct!")
+                            $("#answerExplain").text("you are correct!"+question["anSwerExplain"])
+                        }else{
+                            console.log("wrong!!")
+                            $("#answerExplain").text("wrong!")
+                        }//correct answer index
+                        break;
+                    }
+                }
+            })
+        </script>
     </div>
     <div id="links">
         <ul>
